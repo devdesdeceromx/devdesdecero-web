@@ -40,7 +40,7 @@ const fields = Object.keys(labels).map((k) => ({ key: k, label: labels[k], es: e
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <meta name="robots" content="noindex,nofollow" />
-  <title>Panel · DevDesdeCero</title>
+  <title>CRM DevDesdeCero</title>
   <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -53,7 +53,7 @@ const fields = Object.keys(labels).map((k) => ({ key: k, label: labels[k], es: e
 <main id="login" class="login" hidden>
   <form id="login-form" class="card login-card" novalidate>
     <svg class="logo" viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="12" rx="7.5" ry="10" fill="none" stroke="url(#lg)" stroke-width="3"/></svg>
-    <h1>Panel de DevDesdeCero</h1>
+    <h1>CRM DevDesdeCero</h1>
     <p class="muted">Entra con tu cuenta de administrador.</p>
     <label>Correo<input id="l-email" type="email" autocomplete="username" required /></label>
     <label>Contraseña<input id="l-pass" type="password" autocomplete="current-password" required /></label>
@@ -79,12 +79,15 @@ const fields = Object.keys(labels).map((k) => ({ key: k, label: labels[k], es: e
 <div id="app" hidden>
   <header class="top">
     <div class="top-in">
-      <a class="brand" href={base} title="Ver sitio"><svg viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="12" rx="7.5" ry="10" fill="none" stroke="url(#lg)" stroke-width="3"/></svg>Panel</a>
+      <a class="brand" href={base} title="Ver sitio"><svg viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="12" rx="7.5" ry="10" fill="none" stroke="url(#lg)" stroke-width="3"/></svg><span>CRM <b>DevDesdeCero</b></span></a>
       <nav class="tabs" role="tablist" aria-label="Secciones">
         <button role="tab" data-tab="resumen" aria-selected="true">Resumen</button>
         <button role="tab" data-tab="contactos" aria-selected="false">Contactos <span id="badge" class="badge" hidden></span></button>
-        <button role="tab" data-tab="textos" aria-selected="false">Textos</button>
-        <button role="tab" data-tab="ajustes" aria-selected="false">Correo y redes</button>
+        <button role="tab" data-tab="clientes" aria-selected="false">Clientes</button>
+        <button role="tab" data-tab="cotizaciones" aria-selected="false">Cotizaciones</button>
+        <button role="tab" data-tab="proyectos" aria-selected="false">Proyectos</button>
+        <button role="tab" data-tab="finanzas" aria-selected="false">Finanzas</button>
+        <button role="tab" data-tab="sitio" aria-selected="false">Sitio web</button>
       </nav>
       <button class="btn ghost sm" id="logout" type="button">Salir</button>
     </div>
@@ -152,8 +155,126 @@ const fields = Object.keys(labels).map((k) => ({ key: k, label: labels[k], es: e
       </dialog>
     </section>
 
-    <!-- Textos -->
-    <section data-panel="textos" hidden>
+    <!-- Clientes -->
+    <section data-panel="clientes" hidden>
+      <div class="head">
+        <h2>Clientes</h2>
+        <div class="filters">
+          <input id="c-q" type="search" placeholder="Buscar cliente" aria-label="Buscar cliente" />
+          <button class="btn primary sm" id="add-client" type="button">Nuevo cliente</button>
+        </div>
+      </div>
+      <div id="clients"></div>
+      <dialog id="client-dlg" class="card dialog" aria-labelledby="client-h">
+        <form id="client-form" class="form" novalidate>
+          <h3 id="client-h">Cliente</h3>
+          <input type="hidden" name="id" />
+          <label>Nombre<input name="name" required maxlength="120" /></label>
+          <label>Negocio<input name="business" maxlength="160" /></label>
+          <div class="row2"><label>Correo<input name="email" type="email" maxlength="160" /></label><label>Teléfono<input name="phone" type="tel" maxlength="30" /></label></div>
+          <label>Dirección<input name="address" maxlength="300" /></label>
+          <label>Notas<textarea name="notes" rows="3" maxlength="4000"></textarea></label>
+          <label>Estado<select name="status"><option value="activo">Activo</option><option value="inactivo">Inactivo</option></select></label>
+          <div class="actions"><span id="client-actions" hidden><button class="link" id="client-quote" type="button">Nueva cotización para este cliente</button></span><button class="btn ghost" data-close type="button">Cancelar</button><button class="btn primary" type="submit">Guardar</button></div>
+        </form>
+      </dialog>
+    </section>
+
+    <!-- Cotizaciones -->
+    <section data-panel="cotizaciones" hidden>
+      <div class="head">
+        <h2>Cotizaciones</h2>
+        <div class="filters">
+          <select id="q-status" aria-label="Filtrar por estado"><option value="">Todas</option><option value="borrador">Borrador</option><option value="enviada">Enviada</option><option value="negociacion">Negociación</option><option value="aceptada">Aceptada</option><option value="rechazada">Rechazada</option><option value="vencida">Vencida</option></select>
+          <button class="btn primary sm" id="add-quote" type="button">Nueva cotización</button>
+        </div>
+      </div>
+      <div id="quotes"></div>
+      <dialog id="quote-dlg" class="card dialog wide" aria-labelledby="quote-h">
+        <form id="quote-form" class="form" novalidate>
+          <h3 id="quote-h">Cotización</h3>
+          <input type="hidden" name="id" />
+          <div class="row2"><label>Cliente<select name="client_id" required></select></label><label>Estado<select name="status"></select></label></div>
+          <label>Título<input name="title" required maxlength="160" placeholder="Sitio web para Clínica Sonrisa" /></label>
+          <label>Descripción<textarea name="description" rows="2" maxlength="4000" placeholder="Alcance general del proyecto"></textarea></label>
+          <fieldset class="items"><legend>Conceptos</legend>
+            <div class="item head-row" aria-hidden="true"><span>Concepto</span><span>Cant.</span><span>Precio</span><span class="r">Importe</span><span></span></div>
+            <div id="q-items"></div>
+            <button class="link" id="q-add-item" type="button">+ Agregar concepto</button>
+          </fieldset>
+          <div class="row3"><label>Descuento ($)<input name="discount" type="number" min="0" step="0.01" /></label><label>IVA (%)<input name="tax_rate" type="number" min="0" max="100" step="0.01" /></label><label>Válida hasta<input name="valid_until" type="date" /></label></div>
+          <div class="totals"><span>Subtotal <b id="q-sub" class="num"></b></span><span class="big">Total <b id="q-total" class="num"></b></span></div>
+          <label>Notas y condiciones<textarea name="notes" rows="3" maxlength="4000" placeholder="Ej. 50% de anticipo y 50% contra entrega. Incluye 1 año de hosting."></textarea></label>
+          <div class="actions wrap-actions">
+            <button class="link" id="q-pdf" type="button">Descargar PDF</button>
+            <button class="link" id="q-accept" type="button">Aceptar y crear proyecto</button>
+            <button class="link" id="q-project" type="button" hidden>Ver proyecto</button>
+            <button class="btn ghost" data-close type="button">Cancelar</button><button class="btn primary" type="submit">Guardar</button>
+          </div>
+        </form>
+      </dialog>
+    </section>
+
+    <!-- Proyectos -->
+    <section data-panel="proyectos" hidden>
+      <div class="head">
+        <h2>Proyectos</h2>
+        <div class="filters">
+          <select id="p-status" aria-label="Filtrar proyectos"><option value="abiertos">En curso</option><option value="">Todos</option><option value="entregado">Entregados</option><option value="cerrado">Cerrados</option><option value="cancelado">Cancelados</option></select>
+          <button class="btn primary sm" id="add-project" type="button">Nuevo proyecto</button>
+        </div>
+      </div>
+      <div id="due"></div>
+      <div id="projects" class="proj-grid"></div>
+      <dialog id="project-dlg" class="card dialog wide" aria-labelledby="project-h">
+        <div class="dlg-head"><h3 id="project-h">Proyecto</h3><button class="x" data-close type="button" aria-label="Cerrar">×</button></div>
+        <form id="project-form" class="form" novalidate>
+          <input type="hidden" name="id" />
+          <div class="row2"><label>Cliente<select name="client_id" required></select></label><label>Estado<select name="status"></select></label></div>
+          <label>Nombre<input name="name" required maxlength="160" /></label>
+          <label>Descripción<textarea name="description" rows="2" maxlength="4000"></textarea></label>
+          <div class="row3"><label>Precio (MXN)<input name="price" type="number" min="0" step="0.01" /></label><label>Inicio<input name="start_date" type="date" /></label><label>Entrega<input name="due_date" type="date" /></label></div>
+          <label>Enlace del sitio<input name="url" type="url" placeholder="https://…" /></label>
+          <div class="actions"><span class="saved" id="p-ok" hidden>Guardado</span><button class="btn primary" type="submit">Guardar proyecto</button></div>
+        </form>
+        <div id="p-extra" hidden>
+          <section class="sub"><h4>Tareas</h4>
+            <ul id="p-tasks" class="checklist"></ul>
+            <form id="task-form" class="inline-form"><input name="title" placeholder="Nueva tarea" maxlength="200" aria-label="Nueva tarea" /><input name="due_date" type="date" aria-label="Fecha límite" /><button class="btn sm" type="submit">Agregar</button></form>
+          </section>
+          <section class="sub"><h4>Pagos <small id="p-paysum" class="muted"></small></h4>
+            <ul id="p-pays" class="ledger"></ul>
+            <form id="pay-form" class="inline-form"><select name="kind" data-opts="PAYKIND" aria-label="Tipo de pago"></select><input name="amount" type="number" min="0.01" step="0.01" aria-label="Monto" /><select name="method" data-opts="PAYMETHOD" aria-label="Método"></select><input name="paid_at" type="date" aria-label="Fecha" /><input name="reference" placeholder="Referencia" maxlength="160" aria-label="Referencia" /><button class="btn sm" type="submit">Registrar</button></form>
+          </section>
+          <section class="sub"><h4>Gastos <small id="p-expsum" class="muted"></small></h4>
+            <ul id="p-exps" class="ledger"></ul>
+            <form id="exp-form" class="inline-form"><input name="description" placeholder="Concepto" maxlength="300" aria-label="Concepto del gasto" /><select name="category" data-opts="ECAT" aria-label="Categoría"></select><input name="amount" type="number" min="0.01" step="0.01" placeholder="Monto" aria-label="Monto" /><input name="spent_at" type="date" aria-label="Fecha" /><button class="btn sm" type="submit">Registrar</button></form>
+          </section>
+        </div>
+      </dialog>
+    </section>
+
+    <!-- Finanzas -->
+    <section data-panel="finanzas" hidden>
+      <div class="head">
+        <h2>Finanzas</h2>
+        <div class="seg" role="group" aria-label="Año"><button id="f-prev" type="button" aria-label="Año anterior">‹</button><button class="on" type="button" id="f-year" disabled></button><button id="f-next" type="button" aria-label="Año siguiente">›</button></div>
+      </div>
+      <div class="kpis" id="f-kpis"></div>
+      <div class="card chart-card">
+        <div class="chart-head"><h3>Cobrado y gastos por mes</h3><span class="legend2"><span><i class="lg-in"></i>Cobrado</span><span><i class="lg-out"></i>Gastos</span></span></div>
+        <div id="f-chart" class="chart" role="img"></div>
+        <div id="f-tip" class="tip" hidden></div>
+      </div>
+      <div class="card">
+        <div class="chart-head"><h3>Gastos del año</h3></div>
+        <form id="gexp-form" class="inline-form"><input name="description" placeholder="Gasto general (ej. dominio, Adobe)" maxlength="300" aria-label="Concepto" /><select name="category" data-opts="ECAT" aria-label="Categoría"></select><input name="amount" type="number" min="0.01" step="0.01" placeholder="Monto" aria-label="Monto" /><input name="spent_at" type="date" aria-label="Fecha" /><button class="btn sm" type="submit">Registrar</button></form>
+        <div id="f-exps"></div>
+      </div>
+    </section>
+
+    <!-- Sitio web -->
+    <section data-panel="sitio" hidden>
       <div class="head">
         <h2>Textos del sitio</h2>
         <div class="seg" role="group" aria-label="Idioma">
@@ -162,11 +283,7 @@ const fields = Object.keys(labels).map((k) => ({ key: k, label: labels[k], es: e
       </div>
       <p class="muted note">Deja un campo vacío para usar el texto original. Los cambios se ven en el sitio al recargar.</p>
       <form id="texts" class="card form"></form>
-    </section>
-
-    <!-- Ajustes -->
-    <section data-panel="ajustes" hidden>
-      <div class="head"><h2>Correo y redes</h2></div>
+      <div class="head mt"><h2>Correo y redes</h2></div>
       <form id="settings" class="card form">
         <label>Correo de contacto<input name="contact_email" type="email" required /></label>
         <label>Facebook<input name="facebook_url" type="url" placeholder="https://facebook.com/…" /></label>
