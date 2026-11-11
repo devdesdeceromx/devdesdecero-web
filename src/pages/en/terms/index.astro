@@ -1,0 +1,35 @@
+---
+import Legal from '../../../components/Legal.astro';
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+const mail = 'devdesdeceromx@gmail.com';
+---
+<Legal lang="en" title="Terms of use" description="Conditions for using the DevDesdeCero website." updated="November 11, 2026" alt={`${base}terminos/`}>
+  <p class="intro">By using this website you accept these terms. They're short and in plain language.</p>
+
+  <h2>1. About this website</h2>
+  <p>This website presents the web planning, design and development services of <strong>DevDesdeCero</strong> and lets you send me a message. Its content is for information only.</p>
+
+  <h2>2. Services, prices and dates</h2>
+  <p>Nothing on this website is a binding offer. The scope, price, payment terms and dates of each project are agreed with you in writing in a proposal or quote, and that proposal governs the work.</p>
+
+  <h2>3. Using the form</h2>
+  <p>By submitting the form you confirm the details are yours or that you're allowed to share them. Don't use it to send spam, illegal content or to try to harm the site. How your data is handled is explained in the <a href={`${base}en/privacy/`}>privacy notice</a>.</p>
+
+  <h2>4. Intellectual property</h2>
+  <p>The text, design and code of this website belong to DevDesdeCero. Please don't copy or reuse them without permission.</p>
+  <p>The projects shown in the portfolio, including their names, logos and images, belong to their respective owners and are shown as examples of completed work.</p>
+
+  <h2>5. Links to other websites</h2>
+  <p>This site may link to third-party websites, such as portfolio projects or social media. I'm not responsible for their content or privacy practices.</p>
+
+  <h2>6. Liability</h2>
+  <p>I try to keep the information on this site accurate and available, but it's provided as is, without warranties. To the extent permitted by law, DevDesdeCero isn't liable for damages arising from the use of the site or its unavailability.</p>
+
+  <h2>7. Changes</h2>
+  <p>I may update these terms. The current version is the one published on this page with its update date.</p>
+
+  <h2>8. Governing law</h2>
+  <p>These terms are governed by the laws of Mexico. The Spanish version is the reference text.</p>
+
+  <p class="note">Questions? Email <a href={`mailto:${mail}`}>{mail}</a>.</p>
+</Legal>

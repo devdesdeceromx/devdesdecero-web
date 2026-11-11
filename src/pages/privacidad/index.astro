@@ -1,0 +1,60 @@
+---
+import Legal from '../../components/Legal.astro';
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+const mail = 'devdesdeceromx@gmail.com';
+---
+<Legal lang="es" title="Aviso de privacidad" description="Cómo DevDesdeCero trata los datos personales que compartes en este sitio." updated="11 de noviembre de 2026" alt={`${base}en/privacy/`}>
+  <p class="intro">Este aviso explica qué datos personales recabo en este sitio, para qué los uso y cómo puedes ejercer tus derechos, conforme a la Ley Federal de Protección de Datos Personales en Posesión de los Particulares (LFPDPPP).</p>
+
+  <h2>1. Responsable</h2>
+  <p>El responsable del tratamiento de tus datos es <strong>DevDesdeCero</strong>, servicio de planeación, diseño y desarrollo web que opera en línea desde México. Para cualquier tema relacionado con tus datos, el medio de contacto es el correo <a href={`mailto:${mail}`}>{mail}</a>.</p>
+
+  <h2>2. Datos que recabo</h2>
+  <p>Solo los que tú escribes en el formulario de contacto:</p>
+  <ul>
+    <li>Nombre</li>
+    <li>Correo electrónico</li>
+    <li>Teléfono (opcional)</li>
+    <li>Nombre de tu negocio o sitio actual (opcional)</li>
+    <li>Tipo de proyecto y el mensaje que me envías</li>
+  </ul>
+  <p>Para evitar spam también guardo una huella cifrada (hash) de tu dirección IP, no la IP en sí. No recabo datos personales sensibles ni datos financieros.</p>
+
+  <h2>3. Para qué uso tus datos</h2>
+  <p>Únicamente para:</p>
+  <ul>
+    <li>Responder tu mensaje y darle seguimiento a tu solicitud.</li>
+    <li>Preparar una propuesta o cotización si me la pides.</li>
+    <li>Proteger el formulario contra spam y abuso.</li>
+  </ul>
+  <p>No uso tus datos para enviarte publicidad, boletines ni promociones, y no los vendo ni los comparto con terceros para fines comerciales.</p>
+
+  <h2>4. Con quién se comparten</h2>
+  <p>No transfiero tus datos a terceros. Para que el sitio funcione me apoyo en proveedores que los alojan por cuenta mía y no pueden usarlos para fines propios:</p>
+  <ul>
+    <li><strong>Supabase</strong>: base de datos donde se guardan los mensajes del formulario (servidores en Estados Unidos).</li>
+    <li><strong>GitHub Pages</strong>: alojamiento del sitio.</li>
+  </ul>
+  <p>Solo compartiría tus datos con una autoridad si una ley o una orden judicial me obliga a hacerlo.</p>
+
+  <h2>5. Cuánto tiempo los conservo</h2>
+  <p>Mientras sea necesario para atender tu solicitud y, en su caso, el proyecto que acordemos. Si no iniciamos una relación de trabajo, los elimino a más tardar 12 meses después de tu último mensaje. Puedes pedirme que los borre antes en cualquier momento.</p>
+
+  <h2>6. Tus derechos (ARCO)</h2>
+  <p>Tienes derecho a <strong>acceder</strong> a tus datos, <strong>rectificarlos</strong>, <strong>cancelarlos</strong> u <strong>oponerte</strong> a su uso, así como a revocar tu consentimiento o limitar su uso. Para hacerlo, escríbeme a <a href={`mailto:${mail}`}>{mail}</a> indicando:</p>
+  <ul>
+    <li>Tu nombre y el correo con el que me escribiste.</li>
+    <li>Qué derecho quieres ejercer y sobre qué datos.</li>
+  </ul>
+  <p>Te responderé en un plazo máximo de 20 días hábiles al mismo correo. Si consideras que tus derechos no fueron atendidos, puedes acudir a la autoridad de protección de datos personales competente en México.</p>
+
+  <h2>7. Cookies y tecnologías similares</h2>
+  <p>Este sitio <strong>no usa cookies</strong>, ni de publicidad ni de analítica, y no incluye herramientas de terceros como Google Analytics o píxeles de redes sociales. Las fuentes tipográficas se sirven desde el propio sitio.</p>
+  <p>Para conocer cuántas visitas recibe el sitio uso una analítica propia que registra la página visitada, el sitio del que llegaste, el tipo de dispositivo, navegador y sistema operativo, y el ancho de pantalla. No guarda identificadores en tu navegador: las visitas de un mismo día se agrupan con un código cifrado que cambia cada día y no permite identificarte.</p>
+  <p>Después de enviar el formulario, tu navegador guarda la hora del envío (en almacenamiento local) solo para evitar mensajes duplicados. No contiene datos personales.</p>
+
+  <h2>8. Cambios a este aviso</h2>
+  <p>Si este aviso cambia, publicaré la nueva versión en esta misma página con su fecha de actualización.</p>
+
+  <p class="note">¿Dudas sobre tus datos? Escríbeme a <a href={`mailto:${mail}`}>{mail}</a>.</p>
+</Legal>

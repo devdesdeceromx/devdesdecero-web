@@ -2,6 +2,8 @@
 // Dashboard privado. No aparece en el menú ni en buscadores.
 // El acceso real lo protege Supabase (RLS + lista admin_users), no esta página.
 import { strings } from '../../i18n/strings';
+import '@fontsource-variable/inter';
+import '@fontsource-variable/inter-tight';
 import '../../styles/admin.css';
 
 const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
@@ -42,9 +44,6 @@ const fields = Object.keys(labels).map((k) => ({ key: k, label: labels[k], es: e
   <meta name="robots" content="noindex,nofollow" />
   <title>CRM DevDesdeCero</title>
   <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" />
 </head>
 <body data-sb-url={supabaseUrl} data-sb-key={supabaseKey} data-site={base} data-fields={JSON.stringify(fields)}>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="lg" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#0a66ff"/><stop offset=".55" stop-color="#7b5cff"/><stop offset="1" stop-color="#ff5c8a"/></linearGradient></defs></svg>

@@ -204,7 +204,6 @@ function printQuote(q: Quote) {
   const tax = Math.max(q.subtotal - q.discount, 0) * (q.tax_rate / 100);
   const email = document.body.dataset.email ?? 'devdesdeceromx@gmail.com';
   const html = `<!doctype html><html lang="es"><head><meta charset="utf-8"><title>${esc(q.folio)} · ${esc(q.title)}</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700&family=Inter:wght@400;500;600&display=swap">
 <style>
 @page{size:letter;margin:16mm}*{box-sizing:border-box}body{font:13px/1.5 Inter,system-ui,sans-serif;color:#1d1d1f;margin:0;-webkit-print-color-adjust:exact;print-color-adjust:exact}
 .top{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:1px solid #d2d2d7;padding-bottom:18px}

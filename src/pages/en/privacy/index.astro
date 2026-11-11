@@ -1,0 +1,60 @@
+---
+import Legal from '../../../components/Legal.astro';
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+const mail = 'devdesdeceromx@gmail.com';
+---
+<Legal lang="en" title="Privacy notice" description="How DevDesdeCero handles the personal data you share on this website." updated="November 11, 2026" alt={`${base}privacidad/`}>
+  <p class="intro">This notice explains what personal data I collect on this website, why I use it and how you can exercise your rights. It follows Mexico's Federal Law on the Protection of Personal Data Held by Private Parties (LFPDPPP). The Spanish version is the reference text.</p>
+
+  <h2>1. Who is responsible</h2>
+  <p>The party responsible for your data is <strong>DevDesdeCero</strong>, a web planning, design and development service operating online from Mexico. For anything related to your data, contact <a href={`mailto:${mail}`}>{mail}</a>.</p>
+
+  <h2>2. Data I collect</h2>
+  <p>Only what you type into the contact form:</p>
+  <ul>
+    <li>Name</li>
+    <li>Email address</li>
+    <li>Phone number (optional)</li>
+    <li>Business name or current website (optional)</li>
+    <li>Project type and the message you send</li>
+  </ul>
+  <p>To prevent spam I also store an encrypted fingerprint (hash) of your IP address, not the IP itself. I don't collect sensitive or financial data.</p>
+
+  <h2>3. Why I use it</h2>
+  <p>Only to:</p>
+  <ul>
+    <li>Reply to your message and follow up on your request.</li>
+    <li>Prepare a proposal or quote if you ask for one.</li>
+    <li>Protect the form against spam and abuse.</li>
+  </ul>
+  <p>The legal basis is your request: you contact me and I use your details to answer it. I don't use your data for advertising, newsletters or promotions, and I don't sell or share it with third parties for marketing.</p>
+
+  <h2>4. Who it is shared with</h2>
+  <p>I don't transfer your data to third parties. The site relies on providers that store it on my behalf and can't use it for their own purposes:</p>
+  <ul>
+    <li><strong>Supabase</strong>: database that stores contact form messages (servers in the United States).</li>
+    <li><strong>GitHub Pages</strong>: website hosting.</li>
+  </ul>
+  <p>I would only share your data with an authority if required by law or a court order.</p>
+
+  <h2>5. How long I keep it</h2>
+  <p>As long as needed to handle your request and, if applicable, the project we agree on. If we don't start working together, I delete it no later than 12 months after your last message. You can ask me to delete it sooner at any time.</p>
+
+  <h2>6. Your rights</h2>
+  <p>You can <strong>access</strong>, <strong>correct</strong> or <strong>delete</strong> your data, <strong>object</strong> to its use, limit it or withdraw your consent. Email <a href={`mailto:${mail}`}>{mail}</a> with:</p>
+  <ul>
+    <li>Your name and the email you wrote from.</li>
+    <li>Which right you want to exercise and on which data.</li>
+  </ul>
+  <p>I'll reply to that email within 20 business days. If you feel your rights weren't respected, you can contact the data protection authority in your country.</p>
+
+  <h2>7. Cookies and similar technologies</h2>
+  <p>This website <strong>doesn't use cookies</strong>, for advertising or analytics, and doesn't include third-party tools such as Google Analytics or social media pixels. Fonts are served from the site itself.</p>
+  <p>To know how many visits the site gets I use my own analytics, which records the page visited, the site you came from, device type, browser, operating system and screen width. It doesn't store any identifier in your browser: visits on the same day are grouped with an encrypted code that changes daily and can't identify you.</p>
+  <p>After you submit the form, your browser stores the time of submission (in local storage) only to prevent duplicate messages. It contains no personal data.</p>
+
+  <h2>8. Changes to this notice</h2>
+  <p>If this notice changes, I'll publish the new version on this page with its update date.</p>
+
+  <p class="note">Questions about your data? Email <a href={`mailto:${mail}`}>{mail}</a>.</p>
+</Legal>

@@ -1,5 +1,7 @@
 ---
 import { strings, type Lang } from '../i18n/strings';
+import '@fontsource-variable/inter';
+import '@fontsource-variable/inter-tight';
 import '../styles/global.css';
 
 interface Props { lang: Lang }
@@ -10,6 +12,9 @@ const other: Lang = lang === 'es' ? 'en' : 'es';
 const otherHref = other === 'es' ? base : `${base}en/`;
 const site = Astro.site ? new URL(base, Astro.site).href : base;
 const year = new Date().getFullYear();
+const legal = lang === 'es'
+  ? { privacy: `${base}privacidad/`, terms: `${base}terminos/` }
+  : { privacy: `${base}en/privacy/`, terms: `${base}en/terms/` };
 const arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
 const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL ?? '';
 const supabaseKey = import.meta.env.PUBLIC_SUPABASE_PUBLISHABLE_KEY ?? '';
@@ -31,9 +36,6 @@ const supabaseKey = import.meta.env.PUBLIC_SUPABASE_PUBLISHABLE_KEY ?? '';
   <meta property="og:description" content={t.meta.description} />
   <meta property="og:image" content={`${site}img/radio-emmanuel.jpg`} />
   <meta property="og:locale" content={lang === 'es' ? 'es_MX' : 'en_US'} />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" />
 </head>
 <body data-lang={lang} data-sb-url={supabaseUrl} data-sb-key={supabaseKey}>
 <a class="skip" href="#main">{t.nav.skip}</a>
@@ -207,7 +209,7 @@ const supabaseKey = import.meta.env.PUBLIC_SUPABASE_PUBLISHABLE_KEY ?? '';
         <div class="field"><textarea id="mensaje" name="mensaje" rows="4" placeholder=" " required maxlength="2000"></textarea><label for="mensaje">{t.form.message}</label></div>
         <div class="hp" aria-hidden="true"><label for="sitio_web">{t.form.hp}</label><input id="sitio_web" name="sitio_web" tabindex="-1" autocomplete="new-password" /></div>
         <p class="ferr" id="ferr" role="alert" hidden></p>
-        <div class="fsend"><button class="pill lg" type="submit" id="fbtn">{t.form.send}</button></div>
+        <div class="fsend"><button class="pill lg" type="submit" id="fbtn">{t.form.send}</button><p class="fnote">{t.form.privacy[0]}<a href={legal.privacy}>{t.form.privacy[1]}</a>.</p></div>
       </div>
       <div class="fdone" id="done" hidden>
         <svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="28" fill="none" stroke="#30d158" stroke-width="4"/><path d="M20 33l8 8 16-17" fill="none" stroke="#30d158" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -227,7 +229,7 @@ const supabaseKey = import.meta.env.PUBLIC_SUPABASE_PUBLISHABLE_KEY ?? '';
       <div><b>{t.footer.brand}</b><a href="#manifiesto">{t.footer.links[0]}</a><a href="#giros">{t.footer.links[1]}</a><a href="#proceso">{t.footer.links[2]}</a><a href="#hablemos">{t.footer.links[3]}</a></div>
       <div><b>{t.footer.contact}</b><a href="mailto:devdesdeceromx@gmail.com" data-edit-email>devdesdeceromx@gmail.com</a><span>{t.footer.remote}</span><span id="socials"></span></div>
     </div>
-    <p>© {year} DevDesdeCero. {t.footer.rights}</p>
+    <div class="legal-row"><p>© {year} DevDesdeCero. {t.footer.rights}</p><p class="legal-links"><a href={legal.privacy}>{t.footer.privacy}</a><a href={legal.terms}>{t.footer.terms}</a></p></div>
   </div>
 </footer>
 

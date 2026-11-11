@@ -1,0 +1,55 @@
+---
+import '@fontsource-variable/inter';
+import '@fontsource-variable/inter-tight';
+import '../styles/global.css';
+import { strings, type Lang } from '../i18n/strings';
+
+interface Props { lang: Lang; title: string; description: string; updated: string; alt: string }
+const { lang, title, description, updated, alt } = Astro.props;
+const t = strings[lang];
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+const home = lang === 'es' ? base : `${base}en/`;
+const other: Lang = lang === 'es' ? 'en' : 'es';
+const legal = lang === 'es'
+  ? { privacy: `${base}privacidad/`, terms: `${base}terminos/` }
+  : { privacy: `${base}en/privacy/`, terms: `${base}en/terms/` };
+const year = new Date().getFullYear();
+---
+<!doctype html>
+<html lang={lang}>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>{title} · DevDesdeCero</title>
+  <meta name="description" content={description} />
+  <meta name="theme-color" content="#000000" />
+  <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
+</head>
+<body>
+<a class="skip" href="#main">{t.nav.skip}</a>
+<nav class="nav legal-nav" aria-label={t.nav.main}>
+  <div class="in">
+    <a class="brand" href={home} aria-label={t.nav.home}>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="lg" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#0a66ff"/><stop offset=".55" stop-color="#7b5cff"/><stop offset="1" stop-color="#ff5c8a"/></linearGradient></defs><ellipse cx="12" cy="12" rx="7.5" ry="10" fill="none" stroke="url(#lg)" stroke-width="3"/></svg>
+      DevDesdeCero
+    </a>
+    <div class="nav-r">
+      <a class="lang" href={alt} hreflang={other} lang={other} aria-label={t.nav.lang}><span class:list={[{ on: lang === 'es' }]}>ES</span><span class:list={[{ on: lang === 'en' }]}>EN</span></a>
+      <a class="back" href={home}>{lang === 'es' ? 'Volver al inicio' : 'Back to home'}</a>
+    </div>
+  </div>
+</nav>
+<main id="main" class="legal">
+  <article class="in">
+    <h1>{title}</h1>
+    <p class="upd">{lang === 'es' ? 'Última actualización' : 'Last updated'}: {updated}</p>
+    <slot />
+  </article>
+</main>
+<footer>
+  <div class="in">
+    <div class="legal-row"><p>© {year} DevDesdeCero. {t.footer.rights}</p><p class="legal-links"><a href={legal.privacy}>{t.footer.privacy}</a><a href={legal.terms}>{t.footer.terms}</a></p></div>
+  </div>
+</footer>
+</body>
+</html>

@@ -67,6 +67,7 @@ const es = {
     errMissing: 'Completa tu nombre, correo y tu idea para poder responderte.',
     errWait: 'Ya recibí un mensaje tuyo hace un momento. Espera un minuto antes de enviar otro.',
     errSend: 'No se pudo enviar. Intenta de nuevo o escríbeme a devdesdeceromx@gmail.com.',
+    privacy: ['Solo uso tus datos para responderte. Lee el ', 'aviso de privacidad'],
     doneH: 'Recibí tu mensaje.', doneThanks: 'Gracias, {n}. Te escribo pronto a {e}.',
   },
   footer: {
@@ -74,6 +75,7 @@ const es = {
     work: 'Proyectos', brand: 'DevDesdeCero', links: ['Enfoque', 'Para quién', 'Proceso', 'Contacto'],
     contact: 'Contacto', remote: 'Remoto · Todo el mundo hispano',
     rights: 'Todos los derechos reservados.',
+    privacy: 'Aviso de privacidad', terms: 'Términos de uso',
   },
 };
 
@@ -146,6 +148,7 @@ const en: Strings = {
     errMissing: 'Add your name, email and idea so I can reply.',
     errWait: 'I just got a message from you. Please wait a minute before sending another.',
     errSend: "It couldn't be sent. Try again or email me at devdesdeceromx@gmail.com.",
+    privacy: ['I only use your details to reply to you. Read the ', 'privacy notice'],
     doneH: 'Message received.', doneThanks: "Thanks, {n}. I'll write to you soon at {e}.",
   },
   footer: {
@@ -153,6 +156,7 @@ const en: Strings = {
     work: 'Work', brand: 'DevDesdeCero', links: ['Approach', "Who it's for", 'Process', 'Contact'],
     contact: 'Contact', remote: 'Remote · Worldwide',
     rights: 'All rights reserved.',
+    privacy: 'Privacy notice', terms: 'Terms of use',
   },
 };
 
