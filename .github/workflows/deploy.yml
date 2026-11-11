@@ -32,6 +32,8 @@ jobs:
           # cambiar en Settings → Secrets and variables → Actions → Variables.
           PUBLIC_SUPABASE_URL: ${{ vars.PUBLIC_SUPABASE_URL || 'https://dlvianryadsjcpruikpa.supabase.co' }}
           PUBLIC_SUPABASE_PUBLISHABLE_KEY: ${{ vars.PUBLIC_SUPABASE_PUBLISHABLE_KEY || 'sb_publishable__YXuPo_YL-q49ZapADUtaQ_g2Zf3VMH' }}
+          # Código de verificación de Google Search Console (meta tag).
+          PUBLIC_GOOGLE_SITE_VERIFICATION: ${{ vars.GOOGLE_SITE_VERIFICATION || '' }}
           SITE_URL: ${{ steps.pages.outputs.origin }}
           BASE_PATH: ${{ steps.pages.outputs.base_path }}
       - uses: actions/upload-pages-artifact@v3

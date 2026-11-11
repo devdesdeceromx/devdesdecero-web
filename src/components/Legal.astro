@@ -2,6 +2,7 @@
 import '@fontsource-variable/inter';
 import '@fontsource-variable/inter-tight';
 import '../styles/global.css';
+import Seo from './Seo.astro';
 import { strings, type Lang } from '../i18n/strings';
 
 interface Props { lang: Lang; title: string; description: string; updated: string; alt: string }
@@ -24,6 +25,7 @@ const year = new Date().getFullYear();
   <meta name="description" content={description} />
   <meta name="theme-color" content="#000000" />
   <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
+  <Seo />
 </head>
 <body>
 <a class="skip" href="#main">{t.nav.skip}</a>
