@@ -56,6 +56,9 @@ a{color:inherit}
 .nav-r{display:flex;align-items:center;gap:12px}
 .lang{display:inline-flex;background:color-mix(in srgb,var(--fg) 8%,transparent);border-radius:999px;padding:3px;font-size:13.5px;font-weight:600;color:var(--muted);text-decoration:none}
 .lang span{padding:4px 9px;border-radius:999px}
+.lang{color:color-mix(in srgb,var(--fg) 72%,transparent)}
+.lang .vh,.vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.display picture,.scr picture{display:contents}
 .lang .on{background:var(--bg);color:var(--fg);box-shadow:0 1px 3px rgba(0,0,0,.15)}
 
 /* Hero */

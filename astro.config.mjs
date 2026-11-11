@@ -7,4 +7,6 @@ export default defineConfig({
   site: process.env.SITE_URL || 'https://devdesdeceromx.github.io',
   base: process.env.BASE_PATH || '/',
   trailingSlash: 'ignore',
+  // CSS en línea: evita una petición que bloquea el primer pintado.
+  build: { inlineStylesheets: 'always' },
 });

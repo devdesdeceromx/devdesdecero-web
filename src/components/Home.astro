@@ -1,5 +1,8 @@
 ---
+import { Picture } from 'astro:assets';
 import { strings, type Lang } from '../i18n/strings';
+import radioShot from '../assets/radio-emmanuel.jpg';
+import pideShot from '../assets/pideprogreso.jpg';
 import '@fontsource-variable/inter';
 import '@fontsource-variable/inter-tight';
 import '../styles/global.css';
@@ -47,7 +50,7 @@ const supabaseKey = import.meta.env.PUBLIC_SUPABASE_PUBLISHABLE_KEY ?? '';
     </a>
     <div class="links"><a href="#manifiesto">{t.nav.approach}</a><a href="#proyectos">{t.nav.work}</a><a href="#servicios">{t.nav.services}</a><a href="#proceso">{t.nav.process}</a></div>
     <div class="nav-r">
-      <a class="lang" href={otherHref} hreflang={other} lang={other} aria-label={t.nav.lang}><span class:list={[{ on: lang === 'es' }]}>ES</span><span class:list={[{ on: lang === 'en' }]}>EN</span></a>
+      <a class="lang" href={otherHref} hreflang={other} lang={other}><span class:list={[{ on: lang === 'es' }]}>ES</span><span class:list={[{ on: lang === 'en' }]}>EN</span><span class="vh">{t.nav.lang}</span></a>
       <a class="pill" href="#hablemos">{t.nav.talk}</a>
       <button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="mnav" aria-label={t.nav.open} data-open={t.nav.open} data-close={t.nav.close}><svg class="m" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg><svg class="x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
     </div>
@@ -64,7 +67,7 @@ const supabaseKey = import.meta.env.PUBLIC_SUPABASE_PUBLISHABLE_KEY ?? '';
   </div>
   <div class="stage in">
     <div class="laptop" id="laptop">
-      <div class="lid"><div class="display"><img class="shot" src={`${base}img/radio-emmanuel.jpg`} alt={t.hero.shot} width="1264" height="800" fetchpriority="high" /></div></div>
+      <div class="lid"><div class="display"><Picture class="shot" src={radioShot} alt={t.hero.shot} formats={['avif', 'webp']} widths={[480, 800, 1264]} sizes="(max-width: 920px) 90vw, 860px" quality={70} loading="eager" decoding="async" fetchpriority="high" /></div></div>
       <div class="base"></div>
     </div>
   </div>
@@ -120,7 +123,7 @@ const supabaseKey = import.meta.env.PUBLIC_SUPABASE_PUBLISHABLE_KEY ?? '';
       <a class="more" href="https://pideprogreso.netlify.app/proximamente" target="_blank" rel="noopener">{t.pide.live}</a>
     </div>
     <div class="phone-wrap rv">
-      <div class="phone"><div class="scr"><img class="shot" src={`${base}img/pideprogreso.jpg`} alt={t.pide.shot} loading="lazy" width="390" height="844" /></div></div>
+      <div class="phone"><div class="scr"><Picture class="shot" src={pideShot} alt={t.pide.shot} formats={['webp']} widths={[280, 390]} sizes="280px" quality={70} loading="lazy" decoding="async" /></div></div>
     </div>
     <div class="proj-meta rv">{t.pide.meta.map(([b, s]) => <div><b>{b}</b><span>{s}</span></div>)}</div>
   </div>
