@@ -1,0 +1,238 @@
+---
+import { strings, type Lang } from '../i18n/strings';
+import '../styles/global.css';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = strings[lang];
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+const other: Lang = lang === 'es' ? 'en' : 'es';
+const otherHref = other === 'es' ? base : `${base}en/`;
+const site = Astro.site ? new URL(base, Astro.site).href : base;
+const year = new Date().getFullYear();
+const arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL ?? '';
+const supabaseKey = import.meta.env.PUBLIC_SUPABASE_PUBLISHABLE_KEY ?? '';
+---
+<!doctype html>
+<html lang={lang}>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>{t.meta.title}</title>
+  <meta name="description" content={t.meta.description} />
+  <meta name="theme-color" content="#000000" />
+  <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
+  <link rel="alternate" hreflang="es" href={site} />
+  <link rel="alternate" hreflang="en" href={`${site}en/`} />
+  <link rel="alternate" hreflang="x-default" href={site} />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content={t.meta.title} />
+  <meta property="og:description" content={t.meta.description} />
+  <meta property="og:image" content={`${site}img/radio-emmanuel.jpg`} />
+  <meta property="og:locale" content={lang === 'es' ? 'es_MX' : 'en_US'} />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" />
+</head>
+<body data-lang={lang} data-sb-url={supabaseUrl} data-sb-key={supabaseKey}>
+<a class="skip" href="#main">{t.nav.skip}</a>
+<nav class="nav" aria-label={t.nav.main}>
+  <div class="in">
+    <a class="brand" href="#top" aria-label={t.nav.home}>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="lg" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#0a66ff"/><stop offset=".55" stop-color="#7b5cff"/><stop offset="1" stop-color="#ff5c8a"/></linearGradient></defs><ellipse cx="12" cy="12" rx="7.5" ry="10" fill="none" stroke="url(#lg)" stroke-width="3"/></svg>
+      DevDesdeCero
+    </a>
+    <div class="links"><a href="#manifiesto">{t.nav.approach}</a><a href="#proyectos">{t.nav.work}</a><a href="#servicios">{t.nav.services}</a><a href="#proceso">{t.nav.process}</a></div>
+    <div class="nav-r">
+      <a class="lang" href={otherHref} hreflang={other} lang={other} aria-label={t.nav.lang}><span class:list={[{ on: lang === 'es' }]}>ES</span><span class:list={[{ on: lang === 'en' }]}>EN</span></a>
+      <a class="pill" href="#hablemos">{t.nav.talk}</a>
+      <button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="mnav" aria-label={t.nav.open} data-open={t.nav.open} data-close={t.nav.close}><svg class="m" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg><svg class="x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>
+  </div>
+  <div class="mnav" id="mnav" hidden><a href="#manifiesto">{t.nav.approach}</a><a href="#proyectos">{t.nav.work}</a><a href="#servicios">{t.nav.services}</a><a href="#proceso">{t.nav.process}</a><a class="pill lg" href="#hablemos">{t.nav.talk}</a></div>
+</nav>
+
+<main id="main">
+<header class="hero center" id="top">
+  <div class="in">
+    <h1>{t.hero.a} <span class="grad">{t.hero.b}</span><br />{t.hero.c}</h1>
+    <p class="sub" data-edit="hero_sub">{t.hero.sub}</p>
+    <div class="ctas"><a class="pill lg" href="#hablemos">{t.hero.cta}</a><a class="more" href="#proyectos">{t.hero.more}</a></div>
+  </div>
+  <div class="stage in">
+    <div class="laptop" id="laptop">
+      <div class="lid"><div class="display"><img class="shot" src={`${base}img/radio-emmanuel.jpg`} alt={t.hero.shot} width="1264" height="800" fetchpriority="high" /></div></div>
+      <div class="base"></div>
+    </div>
+  </div>
+</header>
+
+<section class="band ink manifest" id="manifiesto" aria-label={t.nav.approach}>
+  <div class="sticky in">
+    <p id="mtext">{t.manifest.text.split(' ').map((w) => <><span class:list={['w', { g: t.manifest.accent.includes(w) }]}>{w}</span>{' '}</>)}</p>
+  </div>
+</section>
+
+<section class="band alt">
+  <div class="in">
+    <div class="center rv">
+      <h2 class="h2">{t.details.h[0]}<br />{t.details.h[1]}</h2>
+      <p class="lede">{t.details.lede}</p>
+    </div>
+    <div class="bento">
+      <div class="tile t1 rv">
+        <span class="lab">{t.details.perf[0]}</span>
+        <p>{t.details.perf[1]}</p>
+        <svg class="ring" id="ring" viewBox="0 0 132 132" role="img" aria-label={t.details.perf[2]}><circle class="tr" cx="66" cy="66" r="54"/><circle class="pr" cx="66" cy="66" r="54" transform="rotate(-90 66 66)"/><text x="66" y="78" text-anchor="middle">100</text></svg>
+      </div>
+      <div class="tile t2 rv">
+        <span class="lab">{t.details.mobile[0]}</span>
+        <p>{t.details.mobile[1]}</p>
+        <div class="mini-phone" aria-hidden="true"><i></i><i></i><i style="width:70%"></i><i></i><i style="width:50%"></i></div>
+      </div>
+      <div class="tile t3 rv">
+        <span class="lab">{t.details.seo[0]}</span>
+        <p>{t.details.seo[1]}</p>
+        <div class="serp" aria-hidden="true"><div class="u">devdesdecero.com</div><div class="t">{t.details.seo[2]}</div>{t.details.seo[3]}</div>
+      </div>
+      <div class="tile t4 rv">
+        <span class="lab">{t.details.edit[0]}</span>
+        <p>{t.details.edit[1]}</p>
+        <div class="edit" aria-hidden="true">{t.details.edit[2]}<span>&nbsp;</span></div>
+      </div>
+      <div class="tile t5 rv">
+        <span class="lab">{t.details.honest[0]}</span>
+        <div class="big">1:1</div>
+        <p>{t.details.honest[1]}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band ink" id="proyectos">
+  <div class="in">
+    <div class="proj-head center rv">
+      <h2 class="h2">PideProgreso.</h2>
+      <p class="lede">{t.pide.lede}</p>
+      <a class="more" href="https://pideprogreso.netlify.app/proximamente" target="_blank" rel="noopener">{t.pide.live}</a>
+    </div>
+    <div class="phone-wrap rv">
+      <div class="phone"><div class="scr"><img class="shot" src={`${base}img/pideprogreso.jpg`} alt={t.pide.shot} loading="lazy" width="390" height="844" /></div></div>
+    </div>
+    <div class="proj-meta rv">{t.pide.meta.map(([b, s]) => <div><b>{b}</b><span>{s}</span></div>)}</div>
+  </div>
+</section>
+
+<section class="band alt" id="radio">
+  <div class="in">
+    <div class="proj-head center rv">
+      <h2 class="h2">Radio Emmanuel.</h2>
+      <p class="lede">{t.radio.lede}</p>
+      <a class="more" href="https://www.radiocristianaemmanuel.com" target="_blank" rel="noopener">{t.pide.live}</a>
+    </div>
+    <div class="proj-meta rv">{t.radio.meta.map(([b, s]) => <div><b>{b}</b><span>{s}</span></div>)}</div>
+  </div>
+</section>
+
+<section class="band ink" id="giros">
+  <div class="in">
+    <div class="center rv">
+      <h2 class="h2">{t.giros.h[0]}<br />{t.giros.h[1]}</h2>
+      <p class="lede">{t.giros.lede}</p>
+    </div>
+    <div class="giros rv">
+      {t.giros.items.map(([h, p]) => <a class="giro" href="#hablemos"><h3>{h}</h3><p>{p}</p><span class="go" aria-hidden="true" set:html={arrow} /></a>)}
+    </div>
+    <p class="giros-more center rv"><a class="more" href="#hablemos">{t.giros.more}</a></p>
+  </div>
+</section>
+
+<section class="band" id="servicios">
+  <div class="in">
+    <div class="center rv">
+      <h2 class="h2">{t.services.h}</h2>
+      <p class="lede">{t.services.lede}</p>
+    </div>
+    <div class="compare rv">
+      {t.services.plans.map((plan, i) => (
+        <div class="col">
+          {i === 0 && <svg class="ic" viewBox="0 0 64 64" aria-hidden="true"><rect x="14" y="6" width="36" height="52" rx="8" fill="none" stroke="var(--accent)" stroke-width="3"/><rect x="20" y="16" width="24" height="8" rx="2" fill="var(--accent)"/></svg>}
+          {i === 1 && <svg class="ic" viewBox="0 0 64 64" aria-hidden="true"><rect x="6" y="12" width="52" height="34" rx="6" fill="none" stroke="var(--accent-2)" stroke-width="3"/><path d="M2 52h60" stroke="var(--accent-2)" stroke-width="3" stroke-linecap="round"/><rect x="12" y="18" width="18" height="6" rx="2" fill="var(--accent-2)"/></svg>}
+          {i === 2 && <svg class="ic" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="24" fill="none" stroke="var(--accent-3)" stroke-width="3"/><path d="M32 20v24M20 32h24" stroke="var(--accent-3)" stroke-width="3" stroke-linecap="round"/></svg>}
+          <span class="new">{i === 1 ? t.services.recommended : ''}</span>
+          <h3>{plan.name}</h3>
+          <span class="price">{t.services.price}</span>
+          <a class="pill" href="#hablemos" data-pick={['Landing page', 'Sitio completo', 'A medida'][i]}>{t.services.choose}</a>
+          <ul>{plan.items.map(([b, s]) => <li><b>{b}</b>{s}</li>)}</ul>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section class="band" id="proceso" style="padding-top:40px">
+  <div class="in">
+    <div class="center rv"><h2 class="h2">{t.process.h[0]}<br /><span style="color:var(--muted)">{t.process.h[1]}</span></h2></div>
+    <div class="steps">
+      {t.process.steps.map(([h, p], i) => <div class="step rv"><div class="n">{i + 1}</div><h3>{h}</h3><p>{p}</p></div>)}
+    </div>
+  </div>
+</section>
+
+<section class="final center" id="hablemos">
+  <div class="in rv">
+    <h2>{t.final.h[0]}<br /><span class="grad">{t.final.h[1]}</span></h2>
+    <p class="lede">{t.final.lede}</p>
+  </div>
+  <div class="in">
+    <form class="form rv" id="contacto" novalidate
+      data-err-email={t.form.errEmail} data-err-missing={t.form.errMissing} data-err-wait={t.form.errWait} data-err-send={t.form.errSend}
+      data-sending={t.form.sending} data-send={t.form.send} data-thanks={t.form.doneThanks}>
+      <div class="fstep" id="fields">
+        <fieldset>
+          <legend>{t.form.need}</legend>
+          <div class="chips">
+            {t.form.types.map(([v, label], i) => <label><input type="radio" name="tipo" value={v} checked={i === 0} /><span>{label}</span></label>)}
+          </div>
+        </fieldset>
+        <div class="row2">
+          <div class="field"><input id="nombre" name="nombre" placeholder=" " autocomplete="name" required maxlength="80" /><label for="nombre">{t.form.name}</label></div>
+          <div class="field"><input id="correo" name="correo" type="email" placeholder=" " autocomplete="email" required maxlength="160" /><label for="correo">{t.form.email}</label></div>
+        </div>
+        <div class="row2">
+          <div class="field"><input id="telefono" name="telefono" type="tel" inputmode="tel" placeholder=" " autocomplete="tel" maxlength="30" /><label for="telefono">{t.form.phone}</label></div>
+          <div class="field"><input id="negocio" name="negocio" placeholder=" " autocomplete="organization" maxlength="160" /><label for="negocio">{t.form.business}</label></div>
+        </div>
+        <div class="field"><textarea id="mensaje" name="mensaje" rows="4" placeholder=" " required maxlength="2000"></textarea><label for="mensaje">{t.form.message}</label></div>
+        <div class="hp" aria-hidden="true"><label for="sitio_web">{t.form.hp}</label><input id="sitio_web" name="sitio_web" tabindex="-1" autocomplete="new-password" /></div>
+        <p class="ferr" id="ferr" role="alert" hidden></p>
+        <div class="fsend"><button class="pill lg" type="submit" id="fbtn">{t.form.send}</button></div>
+      </div>
+      <div class="fdone" id="done" hidden>
+        <svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="28" fill="none" stroke="#30d158" stroke-width="4"/><path d="M20 33l8 8 16-17" fill="none" stroke="#30d158" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <h3 id="done-h" tabindex="-1">{t.form.doneH}</h3>
+        <p id="done-txt"></p>
+      </div>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="in">
+    <div class="cols">
+      <div><b>{t.footer.services}</b>{t.footer.svc.map((s) => <a href="#servicios">{s}</a>)}</div>
+      <div><b>{t.footer.work}</b><a href="#proyectos">PideProgreso</a><a href="#radio">Radio Emmanuel</a></div>
+      <div><b>{t.footer.brand}</b><a href="#manifiesto">{t.footer.links[0]}</a><a href="#giros">{t.footer.links[1]}</a><a href="#proceso">{t.footer.links[2]}</a><a href="#hablemos">{t.footer.links[3]}</a></div>
+      <div><b>{t.footer.contact}</b><a href="mailto:devdesdeceromx@gmail.com" data-edit-email>devdesdeceromx@gmail.com</a><span>{t.footer.remote}</span><span id="socials"></span></div>
+    </div>
+    <p>© {year} DevDesdeCero. {t.footer.rights}</p>
+  </div>
+</footer>
+
+<script>
+  import '../scripts/main.ts';
+</script>
+</body>
+</html>
