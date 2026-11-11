@@ -1,4 +1,5 @@
 ---
+import { contentSecurityPolicy } from '../lib/security';
 import { strings, type Lang } from '../i18n/strings';
 import '../styles/global.css';
 
@@ -13,12 +14,15 @@ const year = new Date().getFullYear();
 const arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
 const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL ?? '';
 const supabaseKey = import.meta.env.PUBLIC_SUPABASE_PUBLISHABLE_KEY ?? '';
+const csp = contentSecurityPolicy(supabaseUrl);
 ---
 <!doctype html>
 <html lang={lang}>
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta http-equiv="Content-Security-Policy" content={csp} />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
   <title>{t.meta.title}</title>
   <meta name="description" content={t.meta.description} />
   <meta name="theme-color" content="#000000" />
