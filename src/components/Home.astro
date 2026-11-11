@@ -78,7 +78,7 @@ const supabaseKey = import.meta.env.PUBLIC_SUPABASE_PUBLISHABLE_KEY ?? '';
   <div class="in">
     <div class="center rv">
       <h2 class="h2">{t.details.h[0]}<br />{t.details.h[1]}</h2>
-      <p class="lede">{t.details.lede}</p>
+      <p class="lede" data-edit="details_lede">{t.details.lede}</p>
     </div>
     <div class="bento">
       <div class="tile t1 rv">
@@ -114,7 +114,7 @@ const supabaseKey = import.meta.env.PUBLIC_SUPABASE_PUBLISHABLE_KEY ?? '';
   <div class="in">
     <div class="proj-head center rv">
       <h2 class="h2">PideProgreso.</h2>
-      <p class="lede">{t.pide.lede}</p>
+      <p class="lede" data-edit="pide_lede">{t.pide.lede}</p>
       <a class="more" href="https://pideprogreso.netlify.app/proximamente" target="_blank" rel="noopener">{t.pide.live}</a>
     </div>
     <div class="phone-wrap rv">
@@ -128,7 +128,7 @@ const supabaseKey = import.meta.env.PUBLIC_SUPABASE_PUBLISHABLE_KEY ?? '';
   <div class="in">
     <div class="proj-head center rv">
       <h2 class="h2">Radio Emmanuel.</h2>
-      <p class="lede">{t.radio.lede}</p>
+      <p class="lede" data-edit="radio_lede">{t.radio.lede}</p>
       <a class="more" href="https://www.radiocristianaemmanuel.com" target="_blank" rel="noopener">{t.pide.live}</a>
     </div>
     <div class="proj-meta rv">{t.radio.meta.map(([b, s]) => <div><b>{b}</b><span>{s}</span></div>)}</div>
@@ -139,7 +139,7 @@ const supabaseKey = import.meta.env.PUBLIC_SUPABASE_PUBLISHABLE_KEY ?? '';
   <div class="in">
     <div class="center rv">
       <h2 class="h2">{t.giros.h[0]}<br />{t.giros.h[1]}</h2>
-      <p class="lede">{t.giros.lede}</p>
+      <p class="lede" data-edit="giros_lede">{t.giros.lede}</p>
     </div>
     <div class="giros rv">
       {t.giros.items.map(([h, p]) => <a class="giro" href="#hablemos"><h3>{h}</h3><p>{p}</p><span class="go" aria-hidden="true" set:html={arrow} /></a>)}
@@ -152,7 +152,7 @@ const supabaseKey = import.meta.env.PUBLIC_SUPABASE_PUBLISHABLE_KEY ?? '';
   <div class="in">
     <div class="center rv">
       <h2 class="h2">{t.services.h}</h2>
-      <p class="lede">{t.services.lede}</p>
+      <p class="lede" data-edit="services_lede">{t.services.lede}</p>
     </div>
     <div class="compare rv">
       {t.services.plans.map((plan, i) => (
@@ -183,7 +183,7 @@ const supabaseKey = import.meta.env.PUBLIC_SUPABASE_PUBLISHABLE_KEY ?? '';
 <section class="final center" id="hablemos">
   <div class="in rv">
     <h2>{t.final.h[0]}<br /><span class="grad">{t.final.h[1]}</span></h2>
-    <p class="lede">{t.final.lede}</p>
+    <p class="lede" data-edit="final_lede">{t.final.lede}</p>
   </div>
   <div class="in">
     <form class="form rv" id="contacto" novalidate
