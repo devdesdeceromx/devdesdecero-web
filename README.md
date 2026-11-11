@@ -1,5 +1,7 @@
 # DevDesdeCero · sitio web
 
+Sitio publicado: https://devdesdeceromx.github.io/devdesdecero-web/
+
 Sitio público de DevDesdeCero: planeación, diseño y desarrollo web. Bilingüe (`/` español, `/en/` inglés).
 
 - **Astro** (sitio estático, sin frameworks en el navegador)
