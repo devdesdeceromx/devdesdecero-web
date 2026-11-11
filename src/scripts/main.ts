@@ -60,14 +60,8 @@ document.querySelectorAll<HTMLElement>('[data-pick]').forEach((a) => a.addEventL
   if (r) r.checked = true;
 }));
 
-/* ---------- Analítica propia (sin cookies de terceros) ---------- */
-function storedId(store: Storage, key: string) {
-  try {
-    let v = store.getItem(key);
-    if (!v) { v = crypto.randomUUID(); store.setItem(key, v); }
-    return v;
-  } catch { return crypto.randomUUID(); }
-}
+/* ---------- Analítica propia (sin cookies ni identificadores guardados en el navegador) ----------
+   El servidor agrupa las visitas con un hash diario que no se puede revertir. */
 function clientInfo() {
   const ua = navigator.userAgent;
   const device = /iPad|Tablet/i.test(ua) ? 'tablet' : /Mobi|Android/i.test(ua) ? 'mobile' : 'desktop';
@@ -84,8 +78,9 @@ function track(event: 'page_view' | 'lead') {
   if (referrer === location.hostname) referrer = '';
   void rpc('track_event', {
     p_event: event,
-    p_visitor_id: storedId(localStorage, 'ddc-visitor'),
-    p_session_id: storedId(sessionStorage, 'ddc-session'),
+    // ID desechable por carga de página (no se guarda); el servidor lo reemplaza por su hash diario.
+    p_visitor_id: crypto.randomUUID(),
+    p_session_id: crypto.randomUUID(),
     p_path: location.pathname,
     p_lang: lang,
     p_referrer: referrer || null,

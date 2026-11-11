@@ -1,0 +1,35 @@
+---
+import Legal from '../../components/Legal.astro';
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+const mail = 'devdesdeceromx@gmail.com';
+---
+<Legal lang="es" title="Términos de uso" description="Condiciones para usar el sitio de DevDesdeCero." updated="11 de noviembre de 2026" alt={`${base}en/terms/`}>
+  <p class="intro">Al usar este sitio aceptas estos términos. Son cortos y en lenguaje claro.</p>
+
+  <h2>1. Qué es este sitio</h2>
+  <p>Este sitio presenta los servicios de planeación, diseño y desarrollo web de <strong>DevDesdeCero</strong> y te permite enviarme un mensaje. Su contenido es informativo.</p>
+
+  <h2>2. Servicios, precios y fechas</h2>
+  <p>Nada de lo que aparece en el sitio es una oferta vinculante. El alcance, precio, forma de pago y fechas de cada proyecto se acuerdan contigo por escrito en una propuesta o cotización, y esa propuesta es la que rige el trabajo.</p>
+
+  <h2>3. Uso del formulario</h2>
+  <p>Al enviar el formulario confirmas que los datos son tuyos o que tienes permiso para compartirlos. No está permitido usarlo para enviar spam, contenido ilegal o intentar dañar el sitio. El tratamiento de tus datos se explica en el <a href={`${base}privacidad/`}>aviso de privacidad</a>.</p>
+
+  <h2>4. Propiedad intelectual</h2>
+  <p>Los textos, el diseño y el código de este sitio pertenecen a DevDesdeCero. No los copies ni los reutilices sin permiso.</p>
+  <p>Los proyectos mostrados en el portafolio, así como sus nombres, logotipos e imágenes, pertenecen a sus respectivos dueños y se muestran como ejemplo de trabajo realizado.</p>
+
+  <h2>5. Enlaces a otros sitios</h2>
+  <p>El sitio puede incluir enlaces a sitios de terceros, como los proyectos del portafolio o redes sociales. No soy responsable de su contenido ni de sus prácticas de privacidad.</p>
+
+  <h2>6. Responsabilidad</h2>
+  <p>Procuro que la información del sitio sea correcta y que esté disponible, pero se ofrece tal cual, sin garantías. DevDesdeCero no es responsable por daños derivados del uso del sitio o de su falta de disponibilidad, en la medida que lo permita la ley.</p>
+
+  <h2>7. Cambios</h2>
+  <p>Puedo actualizar estos términos. La versión vigente es la publicada en esta página con su fecha de actualización.</p>
+
+  <h2>8. Ley aplicable</h2>
+  <p>Estos términos se rigen por las leyes de los Estados Unidos Mexicanos.</p>
+
+  <p class="note">¿Dudas? Escríbeme a <a href={`mailto:${mail}`}>{mail}</a>.</p>
+</Legal>

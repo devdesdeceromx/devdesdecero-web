@@ -2,8 +2,8 @@
 :root{
   --bg:#f5f5f7; --card:#ffffff; --fg:#1d1d1f; --muted:#6e6e73; --line:#e3e3e8; --field:#f5f5f7;
   --accent:#0a66ff; --bar:#0a66ff; --bar-hi:#0047c2; --lead:#7b5cff; --danger:#d70015; --ok:#1b7f3b;
-  --display:"Inter Tight","Inter",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
-  --body:"Inter",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --display:"Inter Tight Variable","Inter Tight","Inter Variable","Inter",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --body:"Inter Variable","Inter",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
   color-scheme:light;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
