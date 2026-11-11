@@ -1,0 +1,21 @@
+---
+// canonical, hreflang (es/en/x-default) y verificación de Search Console.
+import { pages, googleVerification } from '../seo';
+
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+const root = Astro.site ? new URL(base, Astro.site).href : base;
+const path = Astro.url.pathname.replace(/\/?$/, '/').slice(base.length);
+const pair = pages.find((p) => p.es === path || p.en === path);
+const canonical = root + path;
+---
+<link rel="canonical" href={canonical} />
+<meta property="og:url" content={canonical} />
+{pair && (
+  <>
+    <link rel="alternate" hreflang="es" href={root + pair.es} />
+    <link rel="alternate" hreflang="en" href={root + pair.en} />
+    <link rel="alternate" hreflang="x-default" href={root + pair.es} />
+  </>
+)}
+<link rel="sitemap" type="application/xml" href={`${base}sitemap.xml`} />
+{googleVerification && <meta name="google-site-verification" content={googleVerification} />}

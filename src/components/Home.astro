@@ -6,6 +6,7 @@ import pideShot from '../assets/pideprogreso.jpg';
 import '@fontsource-variable/inter';
 import '@fontsource-variable/inter-tight';
 import '../styles/global.css';
+import Seo from './Seo.astro';
 
 interface Props { lang: Lang }
 const { lang } = Astro.props;
@@ -31,9 +32,7 @@ const supabaseKey = import.meta.env.PUBLIC_SUPABASE_PUBLISHABLE_KEY ?? '';
   <meta name="description" content={t.meta.description} />
   <meta name="theme-color" content="#000000" />
   <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
-  <link rel="alternate" hreflang="es" href={site} />
-  <link rel="alternate" hreflang="en" href={`${site}en/`} />
-  <link rel="alternate" hreflang="x-default" href={site} />
+  <Seo />
   <meta property="og:type" content="website" />
   <meta property="og:title" content={t.meta.title} />
   <meta property="og:description" content={t.meta.description} />
