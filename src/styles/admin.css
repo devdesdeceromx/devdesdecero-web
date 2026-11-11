@@ -54,7 +54,7 @@ label{display:grid;gap:6px;font-size:14px;font-weight:500}
 /* Barra superior */
 .top{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 78%,transparent);backdrop-filter:saturate(1.8) blur(20px);-webkit-backdrop-filter:saturate(1.8) blur(20px);border-bottom:1px solid var(--line)}
 .top-in{max-width:1080px;margin:0 auto;padding:0 16px;height:56px;display:flex;align-items:center;gap:16px}
-.brand{display:flex;align-items:center;gap:8px;font-family:var(--display);font-weight:700;font-size:17px;color:var(--fg)}
+.brand{display:flex;align-items:center;gap:8px;font-family:var(--display);font-weight:700;font-size:17px;color:var(--fg);white-space:nowrap}
 .brand:hover{text-decoration:none}
 .brand svg{width:20px;height:20px}
 .tabs{display:flex;gap:4px;flex:1;overflow-x:auto;scrollbar-width:none}
@@ -154,3 +154,92 @@ label{display:grid;gap:6px;font-size:14px;font-weight:500}
 @media (max-width:860px){.grid2{grid-template-columns:1fr}}
 @media (max-width:600px){.row2{grid-template-columns:1fr}}
 .legend{font:400 12px var(--body);color:var(--muted);margin-left:10px;letter-spacing:0}.legend i{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--lead);margin-right:5px;vertical-align:1px}
+
+/* ===== CRM ===== */
+:root{--bar2:#9a9aa3}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bar2:#6e6e78}}
+:root[data-theme="dark"]{--bar2:#6e6e78}
+.brand span{font-weight:500}.brand b{font-weight:700}
+.top-in{max-width:1180px}.wrap{max-width:1180px}
+.head.mt{margin-top:32px}
+.num{font-variant-numeric:tabular-nums}
+.r{text-align:right}
+.table-card{padding:6px 8px;overflow-x:auto}
+.tbl.rows td{vertical-align:top}
+.tbl small{display:block;color:var(--muted);font-size:12px}
+.tbl.rows tbody tr{cursor:pointer}
+.tbl.rows tbody tr:hover,.tbl.rows tbody tr:focus-visible{background:var(--field)}
+.tbl.rows tbody tr:last-child td{border-bottom:0}
+.chip{display:inline-block;font-size:12px;font-weight:500;border:1px solid var(--line);border-radius:980px;padding:2px 9px;white-space:nowrap;color:var(--muted)}
+.chip.ok,.q-aceptada,.p-entregado,.p-cerrado{color:var(--ok);border-color:color-mix(in srgb,var(--ok) 45%,transparent)}
+.q-enviada,.q-negociacion,.p-desarrollo,.p-revision{color:var(--accent);border-color:color-mix(in srgb,var(--accent) 45%,transparent)}
+.p-espera_anticipo,.p-preparacion,.p-garantia{color:var(--lead);border-color:color-mix(in srgb,var(--lead) 45%,transparent)}
+.q-rechazada,.p-cancelado{color:var(--danger);border-color:color-mix(in srgb,var(--danger) 40%,transparent)}
+
+.dialog.wide{width:min(860px,calc(100vw - 32px))}
+.dlg-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.x{background:none;border:0;color:var(--muted);font-size:22px;line-height:1;cursor:pointer;width:32px;height:32px;border-radius:8px;flex:none}
+.x:hover{background:var(--field);color:var(--fg)}
+.row3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.items{border:1px solid var(--line);border-radius:14px;padding:12px;margin:0;display:grid;gap:8px}
+.items legend{font-size:14px;font-weight:500;padding:0 6px}
+.item{display:grid;grid-template-columns:1fr 80px 120px 110px 32px;gap:8px;align-items:center}
+.item.head-row{font-size:12px;color:var(--muted)}
+.item b{text-align:right;font-weight:500}
+#q-items{display:grid;gap:8px}
+.items .link{justify-self:start}
+.totals{display:flex;justify-content:flex-end;gap:24px;align-items:baseline;color:var(--muted)}
+.totals b{color:var(--fg)}
+.totals .big b{font-family:var(--display);font-size:22px;letter-spacing:-.02em}
+.wrap-actions{flex-wrap:wrap}
+.wrap-actions .link:first-child{margin-right:0}
+.wrap-actions .btn.ghost{margin-left:auto}
+
+.proj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+.proj{cursor:pointer;display:grid;gap:12px;transition:border-color .2s}
+.proj:hover,.proj:focus-visible{border-color:color-mix(in srgb,var(--accent) 50%,var(--line))}
+.proj header{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.proj h3{font-size:17px}
+.proj .muted{font-size:13px}
+.pbar{display:grid;grid-template-columns:1fr auto;gap:2px 8px;font-size:13px}
+.pbar span{color:var(--muted)}
+.pbar .bt{grid-column:1/-1;margin:0}
+.pbar small{grid-column:1/-1;color:var(--muted);font-size:12px}
+.bt i.money{background:var(--ok)}
+.due{margin-bottom:12px}
+.due ul{list-style:none;margin:10px 0 0;padding:0;display:grid}
+.due li{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-top:1px solid var(--line);cursor:pointer;font-size:14px}
+.due li b{font-weight:500;white-space:nowrap;color:var(--muted)}
+.due li.late b{color:var(--danger)}
+
+.sub{border-top:1px solid var(--line);margin-top:20px;padding-top:16px}
+.sub h4{font-family:var(--display);font-size:16px;margin:0 0 10px;letter-spacing:-.02em}
+.sub h4 small{font:400 13px var(--body);margin-left:6px;letter-spacing:0}
+.checklist,.ledger{list-style:none;margin:0 0 10px;padding:0;display:grid}
+.checklist li,.ledger li{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--line);font-size:14px}
+.checklist li>label{flex:1}
+.ledger li span{flex:1}
+.checklist small,.ledger small{color:var(--muted);font-size:12px;white-space:nowrap}
+.check{display:flex;align-items:center;gap:10px;font-weight:400;cursor:pointer}
+.check input{width:18px;height:18px;accent-color:#0a66ff;padding:0;flex:none}
+.check input:checked+span{color:var(--muted);text-decoration:line-through}
+.inline-form{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.inline-form input,.inline-form select{width:auto;flex:1 1 120px;min-width:0;padding:8px 10px}
+.inline-form input[name=title],.inline-form input[name=description]{flex:3 1 200px}
+.inline-form input[type=date]{flex:0 1 150px}
+
+.kpi .v.sm{font-size:26px}
+.legend2{display:flex;gap:14px;font-size:12px;color:var(--muted)}
+.legend2 i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.lg-in{background:var(--bar)}.lg-out{background:var(--bar2)}
+.chart .bar2{fill:var(--bar2)}
+
+@media (max-width:860px){.row3{grid-template-columns:1fr 1fr}}
+@media (max-width:600px){
+  .row3{grid-template-columns:1fr}
+  .item{grid-template-columns:1fr 64px 92px 28px}.item b{display:none}.item.head-row{display:none}
+  .item input[name=i_desc]{grid-column:1/-1}
+  .dialog{padding:18px}
+  .totals{flex-direction:column;align-items:flex-end;gap:4px}
+}
+.tbl .r{text-align:right}

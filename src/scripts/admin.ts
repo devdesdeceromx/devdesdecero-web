@@ -1,11 +1,6 @@
-import { createClient, type Session } from '@supabase/supabase-js';
-
-const body = document.body.dataset;
-if (!body.sbUrl || !body.sbKey) {
-  document.getElementById('loading')!.textContent = 'Falta configurar Supabase (PUBLIC_SUPABASE_URL y PUBLIC_SUPABASE_PUBLISHABLE_KEY).';
-  throw new Error('Supabase no configurado');
-}
-const sb = createClient(body.sbUrl, body.sbKey, { auth: { persistSession: true, autoRefreshToken: true } });
+import type { Session } from '@supabase/supabase-js';
+import { sb, body, $, esc, fmt, fdate, fday, showError, flash, tabLoaders, nav } from './core';
+import './crm';
 
 type Field = { key: string; label: string; es: string; en: string };
 type Lead = {
@@ -20,21 +15,9 @@ type Stats = {
   sources: Row[]; devices: Row[]; langs: Row[]; browsers: Row[]; pipeline: Record<string, number>;
 };
 
-const $ = <T extends HTMLElement = HTMLElement>(id: string) => document.getElementById(id) as T;
-const esc = (s: unknown) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]!));
-const fmt = new Intl.NumberFormat('es-MX');
-const fdate = new Intl.DateTimeFormat('es-MX', { day: 'numeric', month: 'short', year: 'numeric', hour: 'numeric', minute: '2-digit' });
-const fday = new Intl.DateTimeFormat('es-MX', { day: 'numeric', month: 'short', timeZone: 'UTC' });
-
 // Etapas y orígenes del embudo (los mismos de DCX Manager).
 const STATUS: Record<string, string> = { nuevo: 'Nuevo', contactado: 'Contactado', calificado: 'Calificado', cotizacion: 'Cotización', negociacion: 'Negociación', ganado: 'Ganado', perdido: 'No ganado' };
 const SOURCE: Record<string, string> = { sitio: 'Página web', whatsapp: 'WhatsApp', facebook: 'Facebook', instagram: 'Instagram', tiktok: 'TikTok', recomendacion: 'Recomendación', cliente: 'Cliente existente', directo: 'Contacto directo', otro: 'Otro' };
-
-function showError(msg: string | null) {
-  const el = $('g-err');
-  el.textContent = msg ?? '';
-  el.hidden = !msg;
-}
 
 /* ---------------- Sesión ---------------- */
 let recovering = false;
@@ -99,14 +82,16 @@ function openTab(name: string) {
   if (!document.querySelector(`[data-panel="${name}"]`)) name = 'resumen';
   document.querySelectorAll<HTMLButtonElement>('[data-tab]').forEach((b) => b.setAttribute('aria-selected', String(b.dataset.tab === name)));
   document.querySelectorAll<HTMLElement>('[data-panel]').forEach((p) => (p.hidden = p.dataset.panel !== name));
+  document.querySelector(`[data-tab="${name}"]`)?.scrollIntoView({ block: 'nearest', inline: 'nearest' });
   history.replaceState(null, '', `#${name}`);
   showError(null);
   if (name === 'resumen') void loadStats();
   if (name === 'contactos' && !loaded.has(name)) void loadLeads();
-  if (name === 'textos' && !loaded.has(name)) void loadTexts();
-  if (name === 'ajustes' && !loaded.has(name)) void loadSettings();
+  if (name === 'sitio' && !loaded.has(name)) { void loadTexts(); void loadSettings(); }
+  tabLoaders[name]?.();
   loaded.add(name);
 }
+nav.open = openTab;
 document.querySelectorAll<HTMLButtonElement>('[data-tab]').forEach((b) => b.addEventListener('click', () => openTab(b.dataset.tab!)));
 
 /* ---------------- Resumen ---------------- */
@@ -241,7 +226,7 @@ function renderLeads() {
       <p class="meta">${l.email ? `<a href="mailto:${esc(l.email)}?subject=${encodeURIComponent('Tu proyecto con DevDesdeCero')}">${esc(l.email)}</a>` : ''}${l.phone ? `${l.email ? ' · ' : ''}<a href="tel:${esc(l.phone.replace(/[^0-9+]/g, ''))}">${esc(l.phone)}</a>` : ''}<span>${fdate.format(new Date(l.created_at))}</span></p>
       <details><summary>Notas${l.notes ? ' ·' : ''}</summary>
         <textarea rows="3" placeholder="Notas privadas sobre este contacto">${esc(l.notes ?? '')}</textarea>
-        <div class="actions"><button class="link danger" data-del type="button">Borrar contacto</button><span class="saved" hidden>Guardado</span><button class="btn sm" data-save type="button">Guardar nota</button></div>
+        <div class="actions"><button class="link danger" data-del type="button">Borrar contacto</button><button class="btn sm" data-client type="button">Convertir en cliente</button><span class="saved" hidden>Guardado</span><button class="btn sm" data-save type="button">Guardar nota</button></div>
       </details>
     </article>`).join('');
 }
@@ -269,6 +254,12 @@ $('leads').addEventListener('click', async (e) => {
     if (error) return showError('No se pudo guardar la nota.');
     leads.find((x) => x.id === id)!.notes = notes;
     flash(card.querySelector('.saved') as HTMLElement);
+  }
+  if (btn.hasAttribute('data-client')) {
+    const { error } = await sb.rpc('convert_lead_to_client', { p_lead: id });
+    if (error) return showError('No se pudo convertir en cliente.');
+    const l = leads.find((x) => x.id === id); if (l) l.status = 'ganado';
+    nav.open('clientes');
   }
   if (btn.hasAttribute('data-del')) {
     if (!confirm('¿Borrar este contacto? No se puede deshacer.')) return;
@@ -380,7 +371,6 @@ $('settings').addEventListener('submit', async (e) => {
   flash($('s-ok'));
 });
 
-function flash(el: HTMLElement) { el.hidden = false; setTimeout(() => (el.hidden = true), 2200); }
 
 /* ---------------- Arranque ---------------- */
 sb.auth.getSession().then(({ data }) => show(data.session));
