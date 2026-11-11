@@ -19,6 +19,14 @@ type Stats = {
 const STATUS: Record<string, string> = { nuevo: 'Nuevo', contactado: 'Contactado', calificado: 'Calificado', cotizacion: 'Cotización', negociacion: 'Negociación', ganado: 'Ganado', perdido: 'No ganado' };
 const SOURCE: Record<string, string> = { sitio: 'Página web', whatsapp: 'WhatsApp', facebook: 'Facebook', instagram: 'Instagram', tiktok: 'TikTok', recomendacion: 'Recomendación', cliente: 'Cliente existente', directo: 'Contacto directo', otro: 'Otro' };
 
+// Anti-clickjacking: el panel nunca se muestra dentro de un iframe de otro sitio
+// (GitHub Pages no deja enviar X-Frame-Options).
+if (window.top !== window.self) {
+  document.body.textContent = '';
+  window.top!.location.href = window.self.location.href;
+  throw new Error('Panel cargado dentro de un iframe');
+}
+
 /* ---------------- Sesión ---------------- */
 let recovering = false;
 async function show(session: Session | null) {
@@ -38,16 +46,38 @@ async function show(session: Session | null) {
 
 function loginError(msg: string) { const e = $('l-err'); e.textContent = msg; e.classList.remove('info'); e.hidden = false; }
 
+// Límite de intentos en este navegador: tras 5 fallos espera 1 min, luego 2, 4… (máx. 30).
+// El límite real lo aplica Supabase Auth en el servidor (rate limits por IP).
+const LOCK_KEY = 'ddc-login-lock';
+type Lock = { fails: number; until: number };
+function readLock(): Lock {
+  try { return { fails: 0, until: 0, ...JSON.parse(localStorage.getItem(LOCK_KEY) ?? '{}') }; } catch { return { fails: 0, until: 0 }; }
+}
+function writeLock(l: Lock | null) {
+  try { l ? localStorage.setItem(LOCK_KEY, JSON.stringify(l)) : localStorage.removeItem(LOCK_KEY); } catch {}
+}
+
 $('login-form').addEventListener('submit', async (e) => {
   e.preventDefault();
   const email = $<HTMLInputElement>('l-email').value.trim();
   const password = $<HTMLInputElement>('l-pass').value;
   if (!email || !password) return loginError('Escribe tu correo y contraseña.');
+  const lock = readLock();
+  if (lock.until > Date.now()) {
+    return loginError(`Demasiados intentos. Espera ${Math.ceil((lock.until - Date.now()) / 60000)} min y vuelve a intentar.`);
+  }
   const btn = $<HTMLButtonElement>('l-btn');
   btn.disabled = true; btn.textContent = 'Entrando…';
   const { data, error } = await sb.auth.signInWithPassword({ email, password });
   btn.disabled = false; btn.textContent = 'Entrar';
-  if (error) return loginError(/invalid/i.test(error.message) ? 'Correo o contraseña incorrectos.' : 'No se pudo entrar. Intenta de nuevo.');
+  if (error) {
+    if (/rate|too many/i.test(error.message) || error.status === 429) return loginError('Demasiados intentos. Espera unos minutos.');
+    const fails = lock.fails + 1;
+    const until = fails >= 5 ? Date.now() + Math.min(2 ** (fails - 5), 30) * 60000 : 0;
+    writeLock({ fails, until });
+    return loginError(/invalid/i.test(error.message) ? 'Correo o contraseña incorrectos.' : 'No se pudo entrar. Intenta de nuevo.');
+  }
+  writeLock(null);
   $('l-err').hidden = true;
   void show(data.session);
 });

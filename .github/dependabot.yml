@@ -1,0 +1,13 @@
+# Escaneo de dependencias: GitHub revisa cada semana si hay versiones con fallas
+# de seguridad y abre un PR para actualizarlas.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
