@@ -51,7 +51,7 @@ const fields = Object.keys(labels).map((k) => ({ key: k, label: labels[k], es: e
 <!-- Inicio de sesión -->
 <main id="login" class="login" hidden>
   <form id="login-form" class="card login-card" novalidate>
-    <svg class="logo" viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="12" rx="7.5" ry="10" fill="none" stroke="url(#lg)" stroke-width="3"/></svg>
+    <svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#0B1F3A"/><g fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 11 5 16l3.5 5M23.5 11 27 16l-3.5 5M17.5 21.5l3.5-11" stroke="#fff"/><ellipse cx="13" cy="16" rx="2.6" ry="5" stroke="#14B8A6"/></g></svg>
     <h1>CRM DevDesdeCero</h1>
     <p class="muted">Entra con tu cuenta de administrador.</p>
     <label>Correo<input id="l-email" type="email" autocomplete="username" required /></label>
@@ -78,7 +78,7 @@ const fields = Object.keys(labels).map((k) => ({ key: k, label: labels[k], es: e
 <div id="app" hidden>
   <header class="top">
     <div class="top-in">
-      <a class="brand" href={base} title="Ver sitio"><svg viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="12" rx="7.5" ry="10" fill="none" stroke="url(#lg)" stroke-width="3"/></svg><span>CRM <b>DevDesdeCero</b></span></a>
+      <a class="brand" href={base} title="Ver sitio"><svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#0B1F3A"/><g fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 11 5 16l3.5 5M23.5 11 27 16l-3.5 5M17.5 21.5l3.5-11" stroke="#fff"/><ellipse cx="13" cy="16" rx="2.6" ry="5" stroke="#14B8A6"/></g></svg><span>CRM <b>DevDesdeCero</b></span></a>
       <nav class="tabs" role="tablist" aria-label="Secciones">
         <button role="tab" data-tab="resumen" aria-selected="true">Resumen</button>
         <button role="tab" data-tab="contactos" aria-selected="false">Contactos <span id="badge" class="badge" hidden></span></button>
